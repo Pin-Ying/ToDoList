@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -10,5 +11,8 @@ class Todo(models.Model):
     date_completed = models.DateTimeField(blank=True, null=True)
     important = models.BooleanField(default=False)
 
+    ### 外部鍵連結使用者
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
-        return f"{self.id}- {self.title}/ {self.created}"
+        return f"{self.id}-{self.title}-{self.created}"
