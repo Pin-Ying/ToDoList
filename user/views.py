@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # from django.http import HttpResponse
 
 
 def index(request):
     form = UserCreationForm()
+
     msg = ""
     if request.method == "POST":
         print(request.POST)
@@ -18,9 +20,17 @@ def index(request):
             msg = "密碼長度不正確"
 
         # 密碼相同
-        if password1 != password2:
+        elif password1 != password2:
             msg = "兩次密碼不相同"
 
-        # 帳號是否存在
+        else:
+            # 帳號是否存在
+            if User.objects.filter(username=username):
+                msg = "帳號已存在"
 
+            # 註冊使用者
+            else:
+                user = User.objects.create_user(username=username, password=password1)
+                user.save()
+                msg = "註冊成功"
     return render(request, "user/register.html", {"form": form, "msg": msg})
