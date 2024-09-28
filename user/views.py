@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -6,8 +7,26 @@ from django.contrib.auth.models import User
 
 
 def user_login(request):
-    datas = request.POST
-    return render(request, "user/login.html", {"datas": datas})
+    msg = ""
+    user = None
+    if request.method == "POST":
+        if request.POST.get("register"):
+            return redirect("register")
+        if request.POST.get("login"):
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
+            if username == "" or password == "":
+                msg = "帳號密碼不能為空"
+            else:
+                user = authenticate(request, username=username, password=password)
+                if user:
+                    msg = "登入成功"
+                    login(request, user)
+                else:
+                    msg = "帳號或密碼錯誤"
+
+    return render(request, "user/login.html", {"msg": msg, "user": user})
 
 
 def user_register(request):
