@@ -6,6 +6,15 @@ from django.contrib.auth.models import User
 # from django.http import HttpResponse
 
 
+def user_logout(request):
+    logout(request)
+    return redirect("login")
+
+
+def user_profile(request):
+    return render(request, "user/profile.html")
+
+
 def user_login(request):
     msg = ""
     user = None
@@ -23,6 +32,7 @@ def user_login(request):
                 if user:
                     msg = "登入成功"
                     login(request, user)
+                    return redirect("profile")
                 else:
                     msg = "帳號或密碼錯誤"
 
@@ -40,7 +50,7 @@ def user_register(request):
         password2 = request.POST.get("password2")
 
         # 密碼長度至少8
-        if len(password1) < 8 or len(password2) < 8:
+        if len(password1) < 8:
             msg = "密碼長度不正確"
 
         # 密碼相同
@@ -57,6 +67,9 @@ def user_register(request):
                 user = User.objects.create_user(username=username, password=password1)
                 user.save()
                 msg = "註冊成功"
+                return render(request, "user/login.html", {"user": user})
+                # return redirect("login")
+
     return render(request, "user/register.html", {"form": form, "msg": msg})
 
 
