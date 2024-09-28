@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList</title>
+    <style>
+        #navbar {
+            background-color: rgb(50, 50, 80);
+            padding: 12px;
+        }
+
+        .username {
+            color: white;
+        }
+
+        .button {
+            background-color: rgb(120, 120, 170);
+            color: black;
+            text-decoration: none;
+            padding: 6px;
+            width: 100px;
+            border-radius: 3px;
+            margin-left: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar">
+        {% if user.is_superuser %}
+        <span class="username">User: {{user.username}}</span>
+        <a class="button" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <a class="button" href="{% url 'login' %}">Login</a>
+        <a class="button" href="{% url 'register' %}">Register</a>
+        {% endif %}
+        <a class="button" href="{% url 'profile' %}">Profile</a>
+    </div>
+    {% block content %}
+
+    {% endblock %}
+    <div style="color: red;">{{msg}}</div>
+
+</body>
+
+</html>
