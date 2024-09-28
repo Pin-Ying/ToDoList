@@ -1,4 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>ToDoList</h1>
+
+
+{% for todo in todos %}
+<input type="checkbox" name="{{todo.title}}" id="{{todo.title}}">
+<label for="{{todo.title}}">{{todo.title}}</label>
+<li>{{todo.text}}</li>
+<li>{{todo.created}}</li>
+<li>{{todo.important}}</li>
+{% endfor %}
+
 {% endblock %}

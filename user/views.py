@@ -20,8 +20,6 @@ def user_login(request):
     user = None
     username = request.session.get("username", "")
     if request.method == "POST":
-        if request.POST.get("register"):
-            return redirect("register")
         if request.POST.get("login"):
             username = request.POST.get("username")
             password = request.POST.get("password")

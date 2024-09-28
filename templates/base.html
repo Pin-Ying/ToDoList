@@ -29,7 +29,7 @@
 
 <body>
     <div id="navbar">
-        {% if user.is_superuser %}
+        {% if user.is_authenticated %}
         <span class="username">User: {{user.username}}</span>
         <a class="button" href="{% url 'logout' %}">Logout</a>
         {% else %}
