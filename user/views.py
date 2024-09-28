@@ -5,7 +5,12 @@ from django.contrib.auth.models import User
 # from django.http import HttpResponse
 
 
-def index(request):
+def user_login(request):
+    datas = request.POST
+    return render(request, "user/login.html", {"datas": datas})
+
+
+def user_register(request):
     form = UserCreationForm()
 
     msg = ""
@@ -34,3 +39,7 @@ def index(request):
                 user.save()
                 msg = "註冊成功"
     return render(request, "user/register.html", {"form": form, "msg": msg})
+
+
+def index(request):
+    return render(request, "user/index.html")
