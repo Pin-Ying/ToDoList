@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import TodoForm
 
 
-# Create your views here.
+# 顯示代辦事項
 def todo_list(request):
     todos = None
     user = request.user
@@ -19,12 +19,14 @@ def todo_one(request, id):
     user = request.user
     try:
         todo = Todo.objects.get(id=id, user=user)
+        form = TodoForm(instance=todo)
     except Exception as e:
         print(e)
         msg = "id/user error!"
-    return render(request, "todo/todo.html", {"todo": todo, "msg": msg})
+    return render(request, "todo/todo.html", {"form": form, "todo": todo, "msg": msg})
 
 
+# 新增代辦事項
 def creat_todo_form(request):
     msg = ""
     form = None

@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
-{% block CssStyle %}
-
-{% endblock %}
-
 {% block content %}
 <div class="title">ToDo</div>
-<div class="imp">
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    {% if form %}
+    <button class="button" type="submit">Submit</button>
+    <button class="button" type="reset">Reset</button>
+    {% endif %}
+</form>
+
+<!-- <div class="imp">
     {% if todo.important %}
     <span style="color: rgb(165, 40, 115);">IMPORTANT!</span>
     {% else %}
@@ -13,5 +18,6 @@
     {% endif %}
 </div>
 <div style="font-size: small;">{{todo.created}}</div>
-<div class="text">{{todo.text}}</div>
+<div class="text">{{todo.text}}</div> -->
+
 {% endblock %}
