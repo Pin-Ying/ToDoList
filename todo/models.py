@@ -15,5 +15,10 @@ class Todo(models.Model):
     ### 外部鍵連結使用者
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        # 排序功能
+        ordering = ["completed", "-created"]
+        # ordering = ["-created", "important"]
+
     def __str__(self):
         return f"{self.id}-{self.title}-{self.created}"

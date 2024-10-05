@@ -35,17 +35,13 @@
 
 {% block content %}
 <div class="title">ToDoList</div>
-<a class="button" href="{% url 'todo_list_completed' %}">View Completed List</a>
+<a class="button" href="{% url 'todo_list' %}">View ToDoList</a>
 <hr>
 {% for todo in todos %}
-{% if not todo.date_completed %}
+{% if todo.date_completed %}
 <div class="todo">
     <div class="todo_completed">
-        {% if todo.date_completed %}
         <span style="color: rgb(40, 165, 130);">{{todo.date_completed}} finished!</span>
-        {% else %}
-        <span style="color: rgb(165, 40, 115);">haven't completed yet!</span>
-        {% endif %}
     </div>
     <input type="checkbox" name="{{todo.title}}" id="{{todo.title}}">
     <label for="{{todo.title}}" class="title is-5"><a href="{% url 'todo_one' todo.id %}">{{todo.title}}</a></label>
