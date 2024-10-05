@@ -21,15 +21,27 @@
         text-align: right;
         color: rgb(165, 40, 115);
     }
+
+    .todo_completed {
+        text-align: right;
+        font-size: small;
+    }
 </style>
 
 {% endblock %}
 
 {% block content %}
 <div class="title">ToDoList</div>
-
+<hr>
 {% for todo in todos %}
 <div class="todo">
+    <div class="todo_completed">
+        {% if todo.date_completed %}
+        {{todo.date_completed}}
+        {% else %}
+        haven't completed yet!
+        {% endif %}
+    </div>
     <input type="checkbox" name="{{todo.title}}" id="{{todo.title}}">
     <label for="{{todo.title}}" class="todo_title"><a href="{% url 'todo_one' todo.id %}">{{todo.title}}</a></label>
     <div style="font-size: small;">{{todo.created}}</div>
@@ -43,5 +55,4 @@
     </div>
 </div>
 {% endfor %}
-
 {% endblock %}
