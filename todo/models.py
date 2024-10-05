@@ -10,6 +10,7 @@ class Todo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     date_completed = models.DateTimeField(blank=True, null=True)
     important = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
 
     ### 外部鍵連結使用者
     user = models.ForeignKey(User, on_delete=models.CASCADE)

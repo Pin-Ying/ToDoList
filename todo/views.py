@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Todo
 from django.contrib.auth import login, logout, authenticate
 from .forms import TodoForm
+from datetime import datetime
 
 
-# 顯示代辦事項
 def todo_list(request):
     todos = None
     user = request.user
@@ -13,6 +13,7 @@ def todo_list(request):
     return render(request, "todo/todo_list.html", {"todos": todos})
 
 
+# 顯示代辦事項
 def todo_one(request, id):
     msg = ""
     todo = None
@@ -20,9 +21,19 @@ def todo_one(request, id):
     try:
         todo = Todo.objects.get(id=id, user=user)
         form = TodoForm(instance=todo)
+        if request.method == "GET":
+            form = TodoForm(instance=todo)
+        else:
+            form = TodoForm(request.POST, instance=todo)
+            todo = form.save(commit=False)
+            now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            todo.date_completed = now if todo.completed else None
+            todo.save()
+            msg = "success!"
+            return redirect("todo_list")
     except Exception as e:
         print(e)
-        msg = "id/user error!"
+        msg = "error!"
     return render(request, "todo/todo.html", {"form": form, "todo": todo, "msg": msg})
 
 
