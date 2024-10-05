@@ -37,9 +37,9 @@
 <div class="todo">
     <div class="todo_completed">
         {% if todo.date_completed %}
-        {{todo.date_completed}}
+        <span style="color: rgb(40, 165, 130);">{{todo.date_completed}} finished!</span>
         {% else %}
-        haven't completed yet!
+        <span style="color: rgb(165, 40, 115);">haven't completed yet!</span>
         {% endif %}
     </div>
     <input type="checkbox" name="{{todo.title}}" id="{{todo.title}}">
