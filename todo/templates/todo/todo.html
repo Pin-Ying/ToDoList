@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block CssStyle %}
+
+{% endblock %}
+
+{% block content %}
+<div class="title">ToDo</div>
+<div class="imp">
+    {% if todo.important %}
+    <span style="color: rgb(165, 40, 115);">IMPORTANT!</span>
+    {% else %}
+    <span style="color: rgb(40, 165, 130);">NORMAL</span>
+    {% endif %}
+</div>
+<div style="font-size: small;">{{todo.created}}</div>
+<div class="text">{{todo.text}}</div>
+{% endblock %}

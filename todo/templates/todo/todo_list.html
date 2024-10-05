@@ -1,14 +1,47 @@
 {% extends 'base.html' %}
-{% block content %}
-<h1>ToDoList</h1>
+{% block CssStyle %}
+<style>
+    .todo {
+        display: inline-block;
+        width: 300px;
+        background-color: rgb(240, 230, 230);
+        margin: 5px 5px;
+        padding: 5px 5px;
+        border-radius: 6px;
+        height: 200px;
+    }
 
+    .text {
+        background-color: rgb(255, 250, 240);
+        height: 100px;
+        padding: 6px;
+    }
+
+    .imp {
+        text-align: right;
+        color: rgb(165, 40, 115);
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="title">ToDoList</div>
 
 {% for todo in todos %}
-<input type="checkbox" name="{{todo.title}}" id="{{todo.title}}">
-<label for="{{todo.title}}">{{todo.title}}</label>
-<li>{{todo.text}}</li>
-<li>{{todo.created}}</li>
-<li>{{todo.important}}</li>
+<div class="todo">
+    <input type="checkbox" name="{{todo.title}}" id="{{todo.title}}">
+    <label for="{{todo.title}}" class="todo_title"><a href="{% url 'todo_one' todo.id %}">{{todo.title}}</a></label>
+    <div style="font-size: small;">{{todo.created}}</div>
+    <div class="text">{{todo.text}}</div>
+    <div class="imp">
+        {% if todo.important %}
+        <span style="color: rgb(165, 40, 115);">IMPORTANT!</span>
+        {% else %}
+        <span style="color: rgb(40, 165, 130);">NORMAL</span>
+        {% endif %}
+    </div>
+</div>
 {% endfor %}
 
 {% endblock %}

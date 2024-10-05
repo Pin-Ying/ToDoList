@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoList</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <style>
+        body {
+            background-color: rgb(255, 250, 255)
+        }
+
         #navbar {
             background-color: rgb(50, 50, 80);
             padding: 12px;
@@ -13,6 +18,8 @@
 
         .username {
             color: white;
+            font-size: 25px;
+            margin: 5px auto;
         }
 
         .button {
@@ -24,25 +31,32 @@
             border-radius: 3px;
             margin-left: 12px;
         }
+
+        #container {
+            text-align: center;
+        }
     </style>
+    {% block CssStyle %}
+    {% endblock %}
 </head>
 
 <body>
     <div id="navbar">
         {% if user.is_authenticated %}
-        <span class="username">User: {{user.username}}</span>
+        <a href="{% url 'profile' %}"><span class="username">User: {{user.username}}</span></a>
         <a class="button" href="{% url 'logout' %}">Logout</a>
         {% else %}
         <a class="button" href="{% url 'login' %}">Login</a>
         <a class="button" href="{% url 'register' %}">Register</a>
         {% endif %}
-        <a class="button" href="{% url 'profile' %}">Profile</a>
+        <!-- <a class="button" href="{% url 'profile' %}">Profile</a> -->
         <a class="button" href="/">Index</a>
     </div>
-    {% block content %}
-
-    {% endblock %}
-    <div style="color: red;">{{msg}}</div>
+    <div id="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div style="text-align: center; color: red;">{{msg}}</div>
 
 </body>
 

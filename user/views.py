@@ -31,7 +31,7 @@ def user_login(request):
                 if user:
                     msg = "登入成功"
                     login(request, user)
-                    return redirect("profile")
+                    return redirect("todo_list")
                 else:
                     msg = "帳號或密碼錯誤"
 
@@ -72,7 +72,3 @@ def user_register(request):
                 return redirect("login")
 
     return render(request, "user/register.html", {"form": form, "msg": msg})
-
-
-def index(request):
-    return render(request, "user/index.html")
